@@ -1,190 +1,195 @@
-# 📄 ResearchGPT — RAG Research Paper Assistant
+📄 ResearchGPT — RAG Research Paper Assistant
 
-**ResearchGPT** is a fully featured, explainable **Retrieval-Augmented Generation (RAG)** system designed to help users ask natural language questions on research papers and get **grounded, sourced answers**.  
-It supports PDF uploads, semantic retrieval, citation highlighting, and a modern premium UI.
+ResearchGPT is a fully featured, explainable Retrieval-Augmented Generation (RAG) system that allows users to ask natural-language questions on research papers and receive grounded, citation-aware answers.
 
----
+The system combines semantic retrieval (FAISS + embeddings) with LLM-based answer generation, wrapped in a modern, premium UI designed for real-world research workflows.
 
-## 🚀 Live Demo
+🚀 Live Demo
 
-👉 **Hugging Face Spaces** (deployed version):  
-https://huggingface.co/spaces/YOUR_USERNAME/ResearchGPT
+👉 Hugging Face Spaces
+https://huggingface.co/spaces/rohit3576/researchgpt-rag
 
-*(Replace `YOUR_USERNAME` with your own account name)*
+📌 What ResearchGPT Does
 
----
+✅ Upload research papers in PDF format
 
-## 📌 What ResearchGPT Does
+✅ Extract and clean academic text
 
-✔ Upload research papers (PDF)  
-✔ Extract and clean text from the document  
-✔ Split text into semantic chunks  
-✔ Create embeddings using Sentence-Transformers  
-✔ Perform similarity search with FAISS  
-✔ Use a lightweight LLM (FLAN-T5) for answer generation  
-✔ Display answers with **highlighted citations**  
-✔ Show **collapsible source sections**  
-✔ Preview the uploaded PDF  
-✔ Light / Dark mode toggle  
-✔ Premium modern UI with liquid-glass styling
+✅ Split content into semantic chunks
 
----
+✅ Generate dense embeddings using Sentence-Transformers
 
-## 🧠 How It Works
+✅ Perform similarity search using FAISS
 
-ResearchGPT uses the core idea of **Retrieval-Augmented Generation (RAG)**, where the system:
+✅ Generate answers using a lightweight LLM (FLAN-T5)
 
-1. **Extracts and chunks** the input document  
-2. **Embeds text into vector representations**  
-3. **Stores vectors in a FAISS index**  
-4. **Retrieves relevant text chunks** based on user queries  
-5. **Generates answers** using an LLM with retrieved context  
-6. **Displays answers with source citations**
+✅ Highlight citations inside answers
 
-This approach helps reduce hallucination and makes answers explainable. :contentReference[oaicite:1]{index=1}
+✅ Display collapsible source sections
 
----
+✅ Preview uploaded PDFs
 
-## 🧱 Project Structure
+✅ Light / Dark mode toggle
 
+✅ Premium liquid-glass modern UI
+
+🧠 How It Works (RAG Pipeline)
+
+ResearchGPT follows a standard Retrieval-Augmented Generation (RAG) architecture:
+
+PDF ingestion – extract raw text from research papers
+
+Text chunking – split long documents into overlapping semantic chunks
+
+Embedding generation – convert chunks into vector representations
+
+Vector indexing – store embeddings in a FAISS index
+
+Semantic retrieval – fetch the most relevant chunks for a query
+
+Answer generation – pass retrieved context to an LLM
+
+Explainability – return answers with cited source sections
+
+This approach reduces hallucinations and ensures that answers are grounded in the original document.
+
+🧱 Project Structure
 ResearchGPT/
 │
-├── app.py # Gradio UI
-├── requirements.txt # Dependencies
+├── app.py                     # Gradio UI and application logic
+├── requirements.txt           # Python dependencies
 ├── README.md
 │
 ├── assets/
-│ └── styles.css # Custom UI styling (liquid glass)
+│   └── styles.css             # Premium liquid-glass UI styling
 │
 ├── utils/
-│ ├── init.py
-│ ├── pdf_loader.py # PDF text extraction
-│ ├── text_chunker.py # Text chunking
-│ ├── embeddings.py # Embedding model
-│ ├── vector_store.py # FAISS integration
-│ └── rag_pipeline.py # RAG logic (retrieval + generation)
+│   ├── __init__.py
+│   ├── pdf_loader.py          # PDF text extraction
+│   ├── text_chunker.py        # Text chunking logic
+│   ├── embeddings.py          # Embedding model loader
+│   ├── vector_store.py        # FAISS vector index
+│   └── rag_pipeline.py        # Retrieval + generation pipeline
 │
-└── sample.pdf # Example/test PDF (optional)
+└── sample.pdf                 # Example PDF (optional)
 
-yaml
-Copy code
-
----
-
-## 🛠 Installation (Local)
-
-1. **Clone the repository**
-
-```bash
+🛠 Installation (Local Setup)
+1️⃣ Clone the repository
 git clone https://github.com/rohit3576/researchgpt-rag-research-paper-assistant.git
 cd researchgpt-rag-research-paper-assistant
-Create a virtual environment
-
-bash
-Copy code
+2️⃣ Create a virtual environment
 python -m venv venv
-venv\Scripts\activate       # Windows
-# source venv/bin/activate  # macOS / Linux
-Install dependencies
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS / Linux
 
-bash
-Copy code
+3️⃣ Install dependencies
 pip install -r requirements.txt
-Run the app
 
-bash
-Copy code
+4️⃣ Run the application
 python app.py
-Open the local Gradio UI:
 
-cpp
-Copy code
+
+Open the app in your browser:
+
 http://127.0.0.1:7860
+
+
 📌 Usage
-Upload a PDF research paper
 
-Process the paper (building embeddings)
+Upload a research paper (PDF)
 
-Ask a question like:
+Click Process Paper to build embeddings
+
+Ask questions such as:
 
 What methodology does the paper propose?
 
-Summarize the main contributions
+What are the main contributions?
 
-What are the results and conclusions?
+What results were achieved?
 
-View the answer with:
+View:
 
-Highlighted citation references
+Answer with highlighted citations
 
 Expandable source text
 
-PDF preview
+Embedded PDF preview
 
 🧪 Example
-After uploading a PDF, asking:
 
-nginx
-Copy code
+Question:
+
 What methodology does the paper propose?
-will produce a sourced answer such as:
 
-Answer:
-The paper uses head-to-head t-tests between different models to assess significance.
-It defines review helpfulness based on user votes and explores additional feature effects.
 
-with citation spans like:
+Answer (example):
 
-css
-Copy code
-[Source 1] [Source 2] …
-🎨 Features Summary
-Feature	Included
+The paper evaluates models using head-to-head statistical t-tests across multiple runs.
+It defines review helpfulness based on user voting behavior and explores the impact of auxiliary features such as star ratings.
+These methods are applied consistently across different product categories.
+[Source 1] [Source 2]
+
+🎨 Feature Summary
+Feature	Status
 PDF Upload	✅
 Text Extraction	✅
 Chunking	✅
 FAISS Similarity Search	✅
 Embedding Model	✅
-Answer Generation	✅
+LLM Answer Generation	✅
 Citation Highlighting	✅
 Collapsible Sources	✅
 PDF Preview	✅
 Light / Dark Mode	✅
-Premium UI	🔥
+UI	
 
 🧠 Tech Stack
+
 Gradio — Interactive UI
 
 PyPDF2 — PDF parsing
 
-Sentence-Transformers — Embeddings
+Sentence-Transformers — Text embeddings
 
-FAISS (CPU) — Vector search
+FAISS (CPU) — Vector similarity search
 
 Transformers (FLAN-T5) — Answer generation
 
-Python — Backend
+Python — Backend logic
 
 Hugging Face Spaces — Deployment
 
-🧑‍💻 Why This Matters
-RAG systems are increasingly important because they ground generated answers in actual source text, improving accuracy and reliability — unlike vanilla LLM responses which may hallucinate facts. 
-OpenAI Help Center
+🧑‍💻 Why This Project Matters
 
-This project demonstrates a full real-world RAG pipeline, ideal for portfolios, interviews, and research tooling.
+Retrieval-Augmented Generation (RAG) systems are becoming essential for building trustworthy AI applications.
+By grounding LLM outputs in retrieved source documents, ResearchGPT demonstrates how to:
+
+Reduce hallucinations
+
+Improve factual accuracy
+
+Provide explainable AI outputs
+
+This project is portfolio-ready, interview-ready, and mirrors real-world AI system design.
 
 🧪 Future Enhancements
-Support for multiple PDFs at once
 
-Chat history / multi-turn conversations
+Multi-PDF support
 
-Highlight exact quoted sentences in PDF
+Conversational (chat) memory
 
-Better document layout handling (tables, figures)
+Highlight exact quoted sentences inside PDFs
+
+Improved handling of tables and figures
+
+Persistent vector storage
 
 📜 License
-This project is open-source and free to use.
+
+This project is open-source and free to use for educational and personal purposes.
 
 👤 Author
 
-Rohit Pawar, AI/ML Engineer
+Rohit Pawar
+AI / ML Engineer
